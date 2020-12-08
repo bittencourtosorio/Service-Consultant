@@ -15,7 +15,7 @@ Public Class ManageUser
 
     Sub filterrecords(ByVal search As String)
         Try
-            conexao = New SqlConnection("Server=DESKTOP-ALN38I1\TOOLSTUDIO; Database=CONSULTANT; Uid=ToolStudioUser;Pwd=ts;")
+            conexao = New SqlConnection("Server=http://localhost/phpmyadmin/; Database=CONSULTANT; Uid=root;Pwd=;")
             strSQL = "SELECT username, userpass, userlevel, userid FROM UsersInfo ORDER BY username"
 
             Dim dt As New DataTable
