@@ -48,6 +48,9 @@
     <OptionInfer>On</OptionInfer>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="MySql.Data">
+      <HintPath>..\..\..\..\..\..\..\Program Files (x86)\MySQL\MySQL for Visual Studio 1.2.9\Dependencies\MySql.Data.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Deployment" />
@@ -79,10 +82,28 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>CONSULTANTDataSet.xsd</DependentUpon>
     </Compile>
+    <Compile Include="CustomerDB.Designer.vb">
+      <DependentUpon>CustomerDB.vb</DependentUpon>
+    </Compile>
+    <Compile Include="CustomerDB.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Form1.Designer.vb">
       <DependentUpon>Form1.vb</DependentUpon>
     </Compile>
     <Compile Include="Form1.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ErrorDB.Designer.vb">
+      <DependentUpon>ErrorDB.vb</DependentUpon>
+    </Compile>
+    <Compile Include="ErrorDB.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MachineDB.Designer.vb">
+      <DependentUpon>MachineDB.vb</DependentUpon>
+    </Compile>
+    <Compile Include="MachineDB.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="ManageUser.Designer.vb">
@@ -91,7 +112,6 @@
     <Compile Include="ManageUser.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Module1.vb" />
     <Compile Include="Users.Designer.vb">
       <DependentUpon>Users.vb</DependentUpon>
     </Compile>
@@ -122,8 +142,17 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="CustomerDB.resx">
+      <DependentUpon>CustomerDB.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ErrorDB.resx">
+      <DependentUpon>ErrorDB.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MachineDB.resx">
+      <DependentUpon>MachineDB.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ManageUser.resx">
       <DependentUpon>ManageUser.vb</DependentUpon>

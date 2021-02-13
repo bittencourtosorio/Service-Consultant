@@ -1,11 +1,13 @@
 ﻿Imports System.Linq.Expressions
+Imports MySql.Data
+Imports MySql.Data.MySqlClient
 
 Public Class Access
-    Private objConnection As SqlClient.SqlConnection
+    Private objConnection As MySqlClient.MySqlConnection
 
     Public Sub Connect()
         Try
-            objConnection = New SqlClient.SqlConnection("Data Source = DESKTOP-ALN38I1\TOOLSTUDIO; INITIAL CATALOG = CONSULTANT; USER ID = ToolStudioUser; PASSWORD = ts")
+            objConnection = New MySqlClient.MySqlConnection("Server=localhost; database= consultant; user id=root; password=")
             objConnection.Open()
 
         Catch ex As Exception
@@ -28,14 +30,14 @@ Public Class Access
 
     Public Function ExecuteQuery(ByVal Command As String) As DataSet
         Dim ds As New DataSet
-        Dim objDataAdapter As New SqlClient.SqlDataAdapter
-        Dim objCommand As New SqlClient.SqlCommand
+        Dim objDataAdapter As New MySqlClient.MySqlDataAdapter
+        Dim objCommand As New MySqlClient.MySqlCommand
 
         Try
             objCommand = objConnection.CreateCommand
             objCommand.CommandText = Command
 
-            objDataAdapter = New SqlClient.SqlDataAdapter(objCommand)
+            objDataAdapter = New MySqlClient.MySqlDataAdapter(objCommand)
             objDataAdapter.Fill(ds)
 
         Catch ex As Exception

@@ -1,11 +1,13 @@
-﻿Imports System.Data.SqlClient
+﻿Imports MySql.Data
+Imports MySql.Data.MySqlClient
+
 Public Class Users
-    Private conexao As SqlConnection
-    Private comando As SqlCommand
-    Private comandochk As SqlCommand
-    Private da As SqlDataAdapter
-    Private dr As SqlDataReader
-    Private ch As SqlDataReader
+    Private conexao As MySqlConnection
+    Private comando As MySqlCommand
+    Private comandochk As MySqlCommand
+    Private da As MySqlDataAdapter
+    Private dr As MySqlDataReader
+    Private ch As MySqlDataReader
     Private strSQL As String
     Private chkSQL As String
 
@@ -49,7 +51,7 @@ Public Class Users
                 userlevelid = 3
             End If
 
-            conexao = New SqlConnection("Server=DESKTOP-ALN38I1\TOOLSTUDIO; Database=CONSULTANT; Uid=ToolStudioUser;Pwd=ts;")
+            conexao = New MySqlConnection("Server=localhost; database= consultant; user id=root; password=")
             If conexao.State = ConnectionState.Closed Then
                 conexao.Open()
             End If
@@ -57,7 +59,7 @@ Public Class Users
             chkSQL = "SELECT username FROM UsersInfo WHERE username = '" + Usertext1.Text + "'"
             strSQL = "INSERT INTO UsersInfo (username, userpass, userlevel, userlevelid) VALUES (@username, @userpass, @userlevel, @userlevelid)"
 
-            Dim check As New SqlCommand(chkSQL, conexao)
+            Dim check As New MySqlCommand(chkSQL, conexao)
             ch = check.ExecuteReader
             If (ch.Read()) Then
                 MessageBox.Show("User already exists!")
@@ -68,10 +70,10 @@ Public Class Users
             Else
                 ch.Close()
                 conexao.Close()
-                conexao = New SqlConnection("Server=DESKTOP-ALN38I1\TOOLSTUDIO; Database=CONSULTANT; Uid=ToolStudioUser;Pwd=ts;")
+                conexao = New MySqlConnection("Server=localhost; database= consultant; user id=root; password=")
                 conexao.Open()
 
-                comando = New SqlCommand(strSQL, conexao)
+                comando = New MySqlCommand(strSQL, conexao)
                 comando.Parameters.AddWithValue("@username", Usertext1.Text)
                 comando.Parameters.AddWithValue("@userpass", Passtext.Text)
                 comando.Parameters.AddWithValue("@userlevel", ComboBox1.Text)

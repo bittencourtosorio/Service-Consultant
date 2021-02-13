@@ -1,25 +1,21 @@
-﻿Imports System.Data.SqlClient
-Imports System.Data
+﻿Imports System.Data
+Imports MySql.Data
+Imports MySql.Data.MySqlClient
 
 Public Class ManageUser
-    Private conexao As SqlConnection
-    Private comando As SqlCommand
-    Private da As SqlDataAdapter
-    Private dr As SqlDataReader
-    Private ch As SqlDataReader
-    Private chid As SqlDataReader
+    Private conexao As MySqlConnection
+    Private comando As MySqlCommand
+    Private da As MySqlDataAdapter
     Private strSQL As String
     Private deleteSQL As String
-    Private chkSQL As String
-    Private chkSQLid As String
 
     Sub filterrecords(ByVal search As String)
         Try
-            conexao = New SqlConnection("Server=http://localhost/phpmyadmin/; Database=CONSULTANT; Uid=root;Pwd=;")
+            conexao = New MySqlConnection("Server=localhost; database= consultant; user id=root; password=")
             strSQL = "SELECT username, userpass, userlevel, userid FROM UsersInfo ORDER BY username"
 
             Dim dt As New DataTable
-            da = New SqlDataAdapter(strSQL, conexao)
+            da = New MySqlDataAdapter(strSQL, conexao)
             da.Fill(dt)
             dgvData.DataSource = dt
             conexao.Open()
@@ -45,11 +41,11 @@ Public Class ManageUser
 
     Private Sub Refreshbtn_Click(sender As Object, e As EventArgs) Handles Refreshbtn.Click
         Try
-            conexao = New SqlConnection("Server=DESKTOP-ALN38I1\TOOLSTUDIO; Database=CONSULTANT; Uid=ToolStudioUser;Pwd=ts;")
+            conexao = New MySqlConnection("Server=localhost; database= consultant; user id=root; password=")
             strSQL = "SELECT username, userpass, userlevel, userid FROM UsersInfo ORDER BY username"
 
             Dim dt As New DataTable
-            da = New SqlDataAdapter(strSQL, conexao)
+            da = New MySqlDataAdapter(strSQL, conexao)
             da.Fill(dt)
             dgvData.DataSource = dt
             conexao.Open()
@@ -88,7 +84,7 @@ Public Class ManageUser
                 userlevelid = 3
             End If
 
-            conexao = New SqlConnection("Server=DESKTOP-ALN38I1\TOOLSTUDIO; Database=CONSULTANT; Uid=ToolStudioUser;Pwd=ts;")
+            conexao = New MySqlConnection("Server=localhost; database= consultant; user id=root; password=")
             Dim update As String
             Dim value As Integer = CInt(levellbl.Text)
 
@@ -98,7 +94,7 @@ Public Class ManageUser
 
             update = "UPDATE UsersInfo SET userlevel = @userlevel, userlevelid = @userlevelid, userpass = @userpass WHERE userid = @value"
 
-            comando = New SqlCommand(update, conexao)
+            comando = New MySqlCommand(update, conexao)
             comando.Parameters.AddWithValue("@value", value)
             comando.Parameters.AddWithValue("@userpass", userpwdtxt.Text)
             comando.Parameters.AddWithValue("@userlevel", userlvlcbx.Text)
@@ -131,7 +127,7 @@ Public Class ManageUser
 
             Try
                 Dim value1 As Integer = CInt(levellbl.Text)
-                conexao = New SqlConnection("Server=DESKTOP-ALN38I1\TOOLSTUDIO; Database=CONSULTANT; Uid=ToolStudioUser;Pwd=ts;")
+                conexao = New MySqlConnection("Server=localhost; database= consultant; user id=root; password=")
 
                 If conexao.State = ConnectionState.Closed Then
                     conexao.Open()
@@ -139,7 +135,7 @@ Public Class ManageUser
 
                 deleteSQL = "DELETE from UsersInfo where userid = @value"
 
-                comando = New SqlCommand(deleteSQL, conexao)
+                comando = New MySqlCommand(deleteSQL, conexao)
                 comando.Parameters.AddWithValue("@value", value1)
                 comando.ExecuteNonQuery()
                 MessageBox.Show("User deleted successfully!")
@@ -161,6 +157,10 @@ Public Class ManageUser
 
         End If
 
+
+    End Sub
+
+    Private Sub dgvData_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvData.CellContentClick
 
     End Sub
 End Class

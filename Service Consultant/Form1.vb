@@ -1,10 +1,11 @@
-﻿Imports System.Data.SqlClient
+﻿Imports MySql.Data
+Imports MySql.Data.MySqlClient
 Public Class Form1
     Private objBank As New Access
 
     Public Class GlobalVariables
         Public Shared admin As Integer
-        Public Shared load As New SqlConnection("Server= DESKTOP-ALN38I1\TOOLSTUDIO; Database = CONSULTANT; Integrated Security = True")
+        Public Shared load As New MySqlConnection("Server=localhost; database= consultant; user id=root; password=")
     End Class
 
     Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
@@ -55,19 +56,15 @@ Public Class Form1
 
         disconnectbtn.Visible = False
         carregabtn.Visible = True
-
-
         PictureBoxconnect.Visible = False
-            PictureBoxdisconnect.Visible = True
+        PictureBoxdisconnect.Visible = True
 
 
     End Sub
 
-    Private Sub DataGridView1_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles DataGridView1.CellContentClick
-
-    End Sub
-
-    Private Sub Salvabtn_Click(sender As Object, e As EventArgs)
+    Private Sub Err_db_btn_Click(sender As Object, e As EventArgs) Handles Err_db_btn.Click
+        Me.Hide()
+        Form2.Show()
 
     End Sub
 End Class

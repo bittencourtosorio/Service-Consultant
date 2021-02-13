@@ -1,13 +1,13 @@
 ﻿Imports System.IO
-Imports System.Data.SqlClient
+Imports MySql.Data
+Imports MySql.Data.MySqlClient
+
 Public Class Login
-    Private conexao As SqlConnection
-    Private comando As SqlCommand
-    Private comando1 As SqlCommand
-    Private da As SqlDataAdapter
-    Private dr As SqlDataReader
-    Private ch As SqlDataReader
-    Private chk As SqlDataReader
+    Private conexao As MySqlConnection
+    Private comando As MySqlCommand
+    Private dr As MySqlDataReader
+    Private ch As MySqlDataReader
+    Private chk As MySqlDataReader
     Private userlogin As String
     Private passlogin As String
 
@@ -23,15 +23,15 @@ Public Class Login
 
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles loginbtn.Click
         Try
-            conexao = New SqlConnection("Server=DESKTOP-ALN38I1\TOOLSTUDIO; Database=CONSULTANT; Uid=ToolStudioUser;Pwd=ts;")
+            conexao = New MySqlConnection("Server=localhost; database= consultant; user id=root; password=")
 
             If conexao.State = ConnectionState.Closed Then
                 conexao.Open()
             End If
 
-            userlogin = "SELECT userpass FROM UsersInfo where username  = '" + Usertext.Text + "'"
+            userlogin = "SELECT userpass FROM usersinfo where username  = '" + Usertext.Text + "'"
 
-            Dim comando As New SqlCommand(userlogin, conexao)
+            Dim comando As New MySqlCommand(userlogin, conexao)
             ch = comando.ExecuteReader
 
             If Not (ch.Read()) Then
@@ -43,12 +43,12 @@ Public Class Login
             Else
                 ch.Close()
                 conexao.Close()
-                conexao = New SqlConnection("Server=DESKTOP-ALN38I1\TOOLSTUDIO; Database=CONSULTANT; Uid=ToolStudioUser;Pwd=ts;")
+                conexao = New MySqlConnection("Server=localhost; database= consultant; user id=root; password=")
                 conexao.Open()
 
                 passlogin = "SELECT username FROM UsersInfo where userpass = '" + Passtext.Text + "'"
 
-                Dim comando1 As New SqlCommand(passlogin, conexao)
+                Dim comando1 As New MySqlCommand(passlogin, conexao)
                 chk = comando1.ExecuteReader
 
                 If Not (chk.Read()) Then
