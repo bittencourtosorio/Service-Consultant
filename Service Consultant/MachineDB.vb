@@ -11,6 +11,7 @@ Public Class MachineDB
     Dim erosion As String
     Private deleteSQL As String
 
+
     Public Class GlobalVariables
         Public Shared admin As Integer
         Public Shared load As New MySqlConnection("Server=localhost; database= consultant; user id=root; password=")
@@ -53,14 +54,27 @@ Public Class MachineDB
     End Sub
 
     Private Sub create_btn_Click(sender As Object, e As EventArgs) Handles create_btn.Click
+        Dim correctbrand As Integer
+
         Try
             conexao = New MySqlConnection("Server=localhost; database= consultant; user id=root; password=")
             If conexao.State = ConnectionState.Closed Then
                 conexao.Open()
             End If
 
-            strSQL = "INSERT INTO MachinesInfo (mac_type, mac_control, mac_number, mac_year, mac_brand, mac_erosion) VALUES (@mactype, @maccontrol, @macnumber, @macyear, @macbrand, @macerosion)"
+            If brand_cb.Text = "WALTER" Then
+                GoTo Creation
+            ElseIf brand_cb.Text = "STUDER" Then
+                GoTo Creation
+            ElseIf brand_cb.Text = "EWAG" Then
+                GoTo Creation
+            Else
+                MessageBox.Show("Unexisting brand!")
+                GoTo wrongbrand
+            End If
 
+Creation:
+            strSQL = "INSERT INTO MachinesInfo (mac_type, mac_control, mac_number, mac_year, mac_brand, mac_erosion) VALUES (@mactype, @maccontrol, @macnumber, @macyear, @macbrand, @macerosion)"
             comando = New MySqlCommand(strSQL, conexao)
             comando.Parameters.AddWithValue("@mactype", mactype_cb.Text)
             comando.Parameters.AddWithValue("@maccontrol", control_cb.Text)
@@ -68,9 +82,21 @@ Public Class MachineDB
             comando.Parameters.AddWithValue("@macyear", macyear_cb.Text)
             comando.Parameters.AddWithValue("@macbrand", brand_cb.Text)
             comando.Parameters.AddWithValue("@macerosion", erosion)
-            MessageBox.Show("Machine successfully created!")
+            correctbrand = 1
+            GoTo wrongbrand
 
+wrongbrand:
+            If correctbrand = 1 Then
+                GoTo correctbrand
+            Else
+                MessageBox.Show("Machine creation failed!")
+                GoTo ende
+            End If
+
+correctbrand:
+            MessageBox.Show("Machine successfully created!")
             comando.ExecuteNonQuery()
+ende:
 
             conexao.Close()
 
@@ -81,6 +107,7 @@ Public Class MachineDB
             conexao.Close()
             conexao = Nothing
             comando = Nothing
+
         End Try
     End Sub
 
@@ -151,5 +178,10 @@ Public Class MachineDB
             End Try
 
         End If
+    End Sub
+
+    Private Sub brand_btn_Click(sender As Object, e As EventArgs) Handles brand_btn.Click
+        Me.Hide()
+
     End Sub
 End Class

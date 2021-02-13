@@ -24,7 +24,6 @@ Partial Class MachineDB
     Private Sub InitializeComponent()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(MachineDB))
         Me.brand_cb = New System.Windows.Forms.ComboBox()
-        Me.brandlbl = New System.Windows.Forms.Label()
         Me.macnumlbl = New System.Windows.Forms.Label()
         Me.macnumtxt = New System.Windows.Forms.TextBox()
         Me.mactype_cb = New System.Windows.Forms.ComboBox()
@@ -42,6 +41,7 @@ Partial Class MachineDB
         Me.create_btn = New System.Windows.Forms.Button()
         Me.Refreshbtn = New System.Windows.Forms.Button()
         Me.macyear_cb = New System.Windows.Forms.ComboBox()
+        Me.brand_btn = New System.Windows.Forms.Button()
         CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.erosion_gb.SuspendLayout()
         Me.SuspendLayout()
@@ -54,15 +54,6 @@ Partial Class MachineDB
         Me.brand_cb.Name = "brand_cb"
         Me.brand_cb.Size = New System.Drawing.Size(121, 24)
         Me.brand_cb.TabIndex = 0
-        '
-        'brandlbl
-        '
-        Me.brandlbl.AutoSize = True
-        Me.brandlbl.Location = New System.Drawing.Point(249, 34)
-        Me.brandlbl.Name = "brandlbl"
-        Me.brandlbl.Size = New System.Drawing.Size(46, 17)
-        Me.brandlbl.TabIndex = 1
-        Me.brandlbl.Text = "Brand"
         '
         'macnumlbl
         '
@@ -266,11 +257,24 @@ Partial Class MachineDB
         Me.macyear_cb.Size = New System.Drawing.Size(121, 24)
         Me.macyear_cb.TabIndex = 21
         '
+        'brand_btn
+        '
+        Me.brand_btn.BackColor = System.Drawing.Color.Transparent
+        Me.brand_btn.FlatAppearance.BorderColor = System.Drawing.SystemColors.Control
+        Me.brand_btn.FlatAppearance.BorderSize = 0
+        Me.brand_btn.Location = New System.Drawing.Point(214, 28)
+        Me.brand_btn.Name = "brand_btn"
+        Me.brand_btn.Size = New System.Drawing.Size(121, 29)
+        Me.brand_btn.TabIndex = 22
+        Me.brand_btn.Text = "Brand"
+        Me.brand_btn.UseVisualStyleBackColor = False
+        '
         'MachineDB
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(800, 570)
+        Me.Controls.Add(Me.brand_btn)
         Me.Controls.Add(Me.macyear_cb)
         Me.Controls.Add(Me.Refreshbtn)
         Me.Controls.Add(Me.create_btn)
@@ -286,7 +290,6 @@ Partial Class MachineDB
         Me.Controls.Add(Me.mactype_cb)
         Me.Controls.Add(Me.macnumtxt)
         Me.Controls.Add(Me.macnumlbl)
-        Me.Controls.Add(Me.brandlbl)
         Me.Controls.Add(Me.brand_cb)
         Me.Name = "MachineDB"
         Me.Text = "Machine DB"
@@ -299,7 +302,6 @@ Partial Class MachineDB
     End Sub
 
     Friend WithEvents brand_cb As ComboBox
-    Friend WithEvents brandlbl As Label
     Friend WithEvents macnumlbl As Label
     Friend WithEvents macnumtxt As TextBox
     Friend WithEvents mactype_cb As ComboBox
@@ -317,4 +319,5 @@ Partial Class MachineDB
     Friend WithEvents create_btn As Button
     Friend WithEvents Refreshbtn As Button
     Friend WithEvents macyear_cb As ComboBox
+    Friend WithEvents brand_btn As Button
 End Class
