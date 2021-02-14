@@ -88,6 +88,12 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>CONSULTANTDataSet.xsd</DependentUpon>
     </Compile>
+    <Compile Include="ControlDB.Designer.vb">
+      <DependentUpon>ControlDB.vb</DependentUpon>
+    </Compile>
+    <Compile Include="ControlDB.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="CustomerDB.Designer.vb">
       <DependentUpon>CustomerDB.vb</DependentUpon>
     </Compile>
@@ -156,6 +162,9 @@
   <ItemGroup>
     <EmbeddedResource Include="BrandDB.resx">
       <DependentUpon>BrandDB.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ControlDB.resx">
+      <DependentUpon>ControlDB.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="CustomerDB.resx">
       <DependentUpon>CustomerDB.vb</DependentUpon>
