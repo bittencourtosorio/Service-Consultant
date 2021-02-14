@@ -9,7 +9,6 @@ Public Class MachineDB
     Private da As MySqlDataAdapter
     Private reader As MySqlDataReader
     Private strSQL As String
-    Private sintaxe As String
     Dim erosion As String
     Private deleteSQL As String
 
@@ -56,7 +55,6 @@ Public Class MachineDB
     End Sub
 
     Private Sub create_btn_Click(sender As Object, e As EventArgs) Handles create_btn.Click
-        Dim correctbrand As Integer
 
         Try
             conexao = New MySqlConnection("Server=localhost; database= consultant; user id=root; password=")
