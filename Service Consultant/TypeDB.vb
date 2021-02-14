@@ -1,23 +1,22 @@
 ﻿Imports MySql.Data
 Imports MySql.Data.MySqlClient
 
-Public Class BrandDB
+Public Class TypeDB
     Private conexao As MySqlConnection
     Private comando As MySqlCommand
     Private da As MySqlDataAdapter
     Private reader As MySqlDataReader
     Private strSQL As String
     Private creation As Integer
-
     Sub filterrecords(ByVal search As String)
         Try
             conexao = New MySqlConnection("Server=localhost; database= consultant; user id=root; password=")
-            strSQL = "SELECT brand_name as Brands FROM brands ORDER BY brand_name"
+            strSQL = "SELECT type_name as Type FROM type ORDER BY type_name"
 
             Dim dt As New DataTable
             da = New MySqlDataAdapter(strSQL, conexao)
             da.Fill(dt)
-            brand_dgv.DataSource = dt
+            type_dgv.DataSource = dt
             conexao.Open()
 
         Catch ex As Exception
@@ -29,26 +28,22 @@ Public Class BrandDB
         End Try
 
     End Sub
-    Private Sub BrandDB_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+    Private Sub TypeDB_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         filterrecords("")
-    End Sub
 
-    Private Sub back_btn_Click(sender As Object, e As EventArgs) Handles back_btn.Click
-        Me.Hide()
-        MachineDB.Show()
     End Sub
 
     Private Sub refresh_btn_Click(sender As Object, e As EventArgs) Handles refresh_btn.Click
         Try
             conexao = New MySqlConnection("Server=localhost; database= consultant; user id=root; password=")
-            strSQL = "SELECT brand_name as Brands FROM brands ORDER BY brand_name"
+            strSQL = "SELECT type_name as Type FROM type ORDER BY type_name"
 
             Dim dt As New DataTable
             da = New MySqlDataAdapter(strSQL, conexao)
             da.Fill(dt)
-            brand_dgv.DataSource = dt
+            type_dgv.DataSource = dt
             conexao.Open()
-            brand_txt.Text = ""
+            type_txt.Text = ""
 
         Catch ex As Exception
             MessageBox.Show(ex.Message)
@@ -66,20 +61,20 @@ Public Class BrandDB
                 conexao.Open()
             End If
 
-            strSQL = "INSERT INTO brands (brand_name) VALUES (@brandname)"
+            strSQL = "INSERT INTO type (type_name) VALUES (@typename)"
             comando = New MySqlCommand(strSQL, conexao)
-            comando.Parameters.AddWithValue("@brandname", brand_txt.Text)
+            comando.Parameters.AddWithValue("@typename", type_txt.Text)
 
             Try
                 Dim queryString As String
-                queryString = " SELECT * FROM brands WHERE brand_name = '" + brand_txt.Text + "'"
+                queryString = " SELECT * FROM type WHERE type_name = '" + type_txt.Text + "'"
 
                 Dim command As New MySqlCommand(queryString, conexao)
                 reader = command.ExecuteReader()
 
                 If reader.Read() Then
-                    MessageBox.Show("Brand already exists!")
-                    brand_txt.Text = ""
+                    MessageBox.Show("Type already exists!")
+                    type_txt.Text = ""
                     reader.Close()
                     conexao.Close()
                 Else
@@ -100,16 +95,21 @@ created:
         Finally
 
             If creation = 1 Then
-                MessageBox.Show("Brand successfully created!")
+                MessageBox.Show("Type successfully created!")
                 comando.ExecuteNonQuery()
             End If
             filterrecords("")
+            type_txt.Text = ""
             creation = 0
-            brand_txt.Text = ""
             conexao.Close()
             conexao = Nothing
             comando = Nothing
 
         End Try
+    End Sub
+
+    Private Sub back_btn_Click(sender As Object, e As EventArgs) Handles back_btn.Click
+        Me.Hide()
+        MachineDB.Show()
     End Sub
 End Class
