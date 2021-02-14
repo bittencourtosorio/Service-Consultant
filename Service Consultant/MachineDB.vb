@@ -4,8 +4,10 @@ Imports MySql.Data.MySqlClient
 Public Class MachineDB
     Private objBank As New Access
     Private conexao As MySqlConnection
+    Private connection As MySqlConnection
     Private comando As MySqlCommand
     Private da As MySqlDataAdapter
+    Private reader As MySqlDataReader
     Private strSQL As String
     Private sintaxe As String
     Dim erosion As String
@@ -62,18 +64,6 @@ Public Class MachineDB
                 conexao.Open()
             End If
 
-            If brand_cb.Text = "WALTER" Then
-                GoTo Creation
-            ElseIf brand_cb.Text = "STUDER" Then
-                GoTo Creation
-            ElseIf brand_cb.Text = "EWAG" Then
-                GoTo Creation
-            Else
-                MessageBox.Show("Unexisting brand!")
-                GoTo wrongbrand
-            End If
-
-Creation:
             strSQL = "INSERT INTO MachinesInfo (mac_type, mac_control, mac_number, mac_year, mac_brand, mac_erosion) VALUES (@mactype, @maccontrol, @macnumber, @macyear, @macbrand, @macerosion)"
             comando = New MySqlCommand(strSQL, conexao)
             comando.Parameters.AddWithValue("@mactype", mactype_cb.Text)
@@ -82,22 +72,32 @@ Creation:
             comando.Parameters.AddWithValue("@macyear", macyear_cb.Text)
             comando.Parameters.AddWithValue("@macbrand", brand_cb.Text)
             comando.Parameters.AddWithValue("@macerosion", erosion)
-            correctbrand = 1
-            GoTo wrongbrand
 
-wrongbrand:
-            If correctbrand = 1 Then
-                GoTo correctbrand
-            Else
-                MessageBox.Show("Machine creation failed!")
-                GoTo ende
-            End If
+            Try
+                Dim queryString As String
+                queryString = " SELECT * FROM brands WHERE brand_name = '" + brand_cb.Text + "'"
 
-correctbrand:
+                Dim command As New MySqlCommand(queryString, connection)
+                reader = command.ExecuteReader()
+
+                If Not reader.Read() Then
+                    MessageBox.Show("Brand doesn't exist!")
+                    reader.Close()
+                    connection.Close()
+                End If
+
+            Catch ex As Exception
+                MessageBox.Show(ex.Message)
+
+            Finally
+                reader.Close()
+                connection.Close()
+                connection = Nothing
+
+            End Try
+
             MessageBox.Show("Machine successfully created!")
             comando.ExecuteNonQuery()
-ende:
-
             conexao.Close()
 
         Catch ex As Exception
@@ -182,6 +182,41 @@ ende:
 
     Private Sub brand_btn_Click(sender As Object, e As EventArgs) Handles brand_btn.Click
         Me.Hide()
+
+    End Sub
+
+    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
+        Try
+            connection = New MySqlConnection("Server=localhost; database= consultant; user id=root; password=")
+
+            If connection.State = ConnectionState.Closed Then
+                connection.Open()
+            End If
+
+            Dim queryString As String
+            queryString = " SELECT * FROM brands WHERE brand_name = '" + TextBox1.Text + "'"
+
+            Dim command As New MySqlCommand(queryString, connection)
+
+            reader = command.ExecuteReader()
+
+            If reader.Read() Then
+                MessageBox.Show("Existe")
+                reader.Close()
+                connection.Close()
+            Else
+                MessageBox.Show("Nao Existe")
+                reader.Close()
+                connection.Close()
+            End If
+        Catch ex As Exception
+            MessageBox.Show(ex.Message)
+        Finally
+            reader.Close()
+            connection.Close()
+            connection = Nothing
+
+        End Try
 
     End Sub
 End Class

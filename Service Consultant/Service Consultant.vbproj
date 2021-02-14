@@ -77,6 +77,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Access.vb" />
+    <Compile Include="BrandDB.Designer.vb">
+      <DependentUpon>BrandDB.vb</DependentUpon>
+    </Compile>
+    <Compile Include="BrandDB.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="CONSULTANTDataSet.Designer.vb">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -142,6 +148,9 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="BrandDB.resx">
+      <DependentUpon>BrandDB.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="CustomerDB.resx">
       <DependentUpon>CustomerDB.vb</DependentUpon>
     </EmbeddedResource>

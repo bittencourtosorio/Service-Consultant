@@ -42,6 +42,8 @@ Partial Class MachineDB
         Me.Refreshbtn = New System.Windows.Forms.Button()
         Me.macyear_cb = New System.Windows.Forms.ComboBox()
         Me.brand_btn = New System.Windows.Forms.Button()
+        Me.Button1 = New System.Windows.Forms.Button()
+        Me.TextBox1 = New System.Windows.Forms.TextBox()
         CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.erosion_gb.SuspendLayout()
         Me.SuspendLayout()
@@ -269,11 +271,29 @@ Partial Class MachineDB
         Me.brand_btn.Text = "Brand"
         Me.brand_btn.UseVisualStyleBackColor = False
         '
+        'Button1
+        '
+        Me.Button1.Location = New System.Drawing.Point(235, 526)
+        Me.Button1.Name = "Button1"
+        Me.Button1.Size = New System.Drawing.Size(75, 23)
+        Me.Button1.TabIndex = 23
+        Me.Button1.Text = "Button1"
+        Me.Button1.UseVisualStyleBackColor = True
+        '
+        'TextBox1
+        '
+        Me.TextBox1.Location = New System.Drawing.Point(342, 526)
+        Me.TextBox1.Name = "TextBox1"
+        Me.TextBox1.Size = New System.Drawing.Size(100, 22)
+        Me.TextBox1.TabIndex = 24
+        '
         'MachineDB
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(800, 570)
+        Me.Controls.Add(Me.TextBox1)
+        Me.Controls.Add(Me.Button1)
         Me.Controls.Add(Me.brand_btn)
         Me.Controls.Add(Me.macyear_cb)
         Me.Controls.Add(Me.Refreshbtn)
@@ -320,4 +340,6 @@ Partial Class MachineDB
     Friend WithEvents Refreshbtn As Button
     Friend WithEvents macyear_cb As ComboBox
     Friend WithEvents brand_btn As Button
+    Friend WithEvents Button1 As Button
+    Friend WithEvents TextBox1 As TextBox
 End Class
